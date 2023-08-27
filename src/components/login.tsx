@@ -6,6 +6,7 @@ import { onAuthChanged } from "@/firebase/auth";
 import { auth } from "@/firebase/config";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useSignOut } from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
 
 export function SignInButton() {
   const [SignOut] = useSignOut(auth);
@@ -18,6 +19,8 @@ export function SignInButton() {
       setLoggedIn(!!user);
     });
   }, []);
+
+  console.log(getAuth().currentUser)
 
   return loggedIn ? (
     <button onClick={() => SignOut()}>Sign Out</button>
