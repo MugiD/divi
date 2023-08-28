@@ -7,6 +7,8 @@ import { auth } from "@/firebase/config";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
+import { BsPersonFill } from "react-icons/bs";
+import { BiLogInCircle } from "react-icons/bi";
 
 export function SignInButton() {
   const [SignOut] = useSignOut(auth);
@@ -20,20 +22,26 @@ export function SignInButton() {
     });
   }, []);
 
-  console.log(getAuth().currentUser)
+  console.log(getAuth().currentUser);
 
   return loggedIn ? (
-    <button onClick={() => SignOut()}>Sign Out</button>
+    <button
+      className="rounded-full p-3 bg-zinc-200 dark:bg-zinc-900"
+      onClick={() => router.push("/profile")}
+    >
+      <BsPersonFill width={16} height={16} />
+    </button>
   ) : (
     <button
+      className="rounded-full p-3 bg-zinc-200 dark:bg-zinc-900"
       onClick={async () => {
         const user = await SignInWithGoogle();
         if (user) {
-            router.push("/");
+          router.push("/");
         }
       }}
     >
-      Sign In
+      <BiLogInCircle width={16} height={16} />
     </button>
   );
 }
